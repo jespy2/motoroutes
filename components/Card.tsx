@@ -18,10 +18,10 @@ export interface ICardProps {
 export default function Card(props: ICardProps) {
 	const [showModal, setShowModal] = useState<boolean>(false)
 	const { route } = props;
-	const { ride, time, distance, difficulty, map } = route;
+	const { ride, time, distance, difficulty, map, notes } = route;
 	return (
 		<View style={styles.container}>
-			{showModal && <Notes setShowModal={setShowModal} />}
+			{showModal && <Notes setShowModal={setShowModal} notes={notes as string} ride={ride}  />}
 			<Text style={styles.title}>{ride}</Text>
 			<View style={styles.subContainer}>
 				<Text style={styles.sectionTitle} >Stats</Text>

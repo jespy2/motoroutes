@@ -8,10 +8,22 @@ export type StackParamList = {
 
 type HomeScreenNavigationProp = NavigationProp<StackParamList, 'Home'>;
 type HomeScreenRouteProp = RouteProp<StackParamList, 'Home'>;
+type RoutesScreenNavigationProp = NavigationProp<StackParamList, 'Routes'>;
+type RoutesScreenRouteProp = RouteProp<StackParamList, 'Routes'>;
 
 export interface IHomeProps {
   navigation: HomeScreenNavigationProp;
   route: HomeScreenRouteProp;
+}
+export interface IRoutesProps {
+  navigation: RoutesScreenNavigationProp;
+  route: RoutesScreenRouteProp;
+}
+
+export interface INotesProps {
+  setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
+  notes: string;
+  ride: string;
 }
 
 export interface IRoute {

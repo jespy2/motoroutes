@@ -1,14 +1,16 @@
-import { ScrollView, StyleSheet, View } from "react-native";
+import { Pressable, ScrollView, StyleSheet, View } from "react-native";
 import Header from "../components/Header";
 import Card from "../components/Card";
 import { mockData } from "../mockdata";
-import { IRoute } from "../types";
+import { IRoute, IRoutesProps } from "../types";
 
-export default function Routes() {
+export default function Routes({navigation, route}: IRoutesProps) {
 	const routes: IRoute[] = mockData;
 	return (
 		<View style={styles.container}>
-    <Header />
+		<Pressable onPress={() => navigation.navigate("Home")}>
+			<Header />
+		</Pressable>
 			<ScrollView>
 				{routes.map((route, idx) => (
 					<Card key={idx} route={route} />

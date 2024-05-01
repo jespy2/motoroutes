@@ -1,4 +1,5 @@
-import { StyleSheet, Text, View } from "react-native";
+import { useState } from 'react';
+import { Linking, Pressable, StyleSheet, Text, Touchable, TouchableOpacity, View } from "react-native";
 import {
 	Entypo,
 	Feather,
@@ -6,38 +7,53 @@ import {
 	Ionicons,
 	MaterialCommunityIcons,
 } from "@expo/vector-icons";
+import { IRoute } from "../types";
+import Notes from "./Notes";
 
-export default function Card() {
+export interface ICardProps {
+	key: number;
+	route: IRoute;
+}
+
+export default function Card(props: ICardProps) {
+	const [showModal, setShowModal] = useState<boolean>(false)
+	const { route } = props;
+	const { ride, time, distance, difficulty, map } = route;
 	return (
 		<View style={styles.container}>
-			<Text style={styles.title}>40 Switchback Loop</Text>
+			{showModal && <Notes setShowModal={setShowModal} />}
+			<Text style={styles.title}>{ride}</Text>
 			<View style={styles.subContainer}>
 				<View style={styles.dataContainer}>
 					<Text style={styles.label}>
-						<Ionicons name='time' style={styles.icon} /> 7.5 Hrs
+						<Ionicons name='time' style={styles.icon} /> {time} Hrs
 					</Text>
 					<Text style={styles.label}>
 						<MaterialCommunityIcons
 							name='map-marker-distance'
 							style={styles.icon}
 						/>{" "}
-						327 Miles
+						{distance} Miles
 					</Text>
 					<Text style={styles.label}>
-						<Entypo name='gauge' style={styles.icon} />: 7
+						<Entypo name='gauge' style={styles.icon} />: {difficulty}
 					</Text>
 				</View>
 				<View style={styles.linksContainer}>
+					<TouchableOpacity onPress={() => Linking.openURL(map)}>
 					<Text style={styles.label}>
 						<FontAwesome5 name='directions' style={styles.icon} /> Launch Map
 					</Text>
-					<Text style={styles.label}>
+					</TouchableOpacity>
+					<Pressable onPress={() => setShowModal(!showModal)}>
+						<Text style={styles.label}>
 						<MaterialCommunityIcons
 							name='notebook-outline'
 							style={styles.icon}
 						/>{" "}
 						Show Notes
 					</Text>
+					</Pressable >
 					<Text style={styles.label}>
 						<Feather name='video' style={styles.icon} /> Videos
 					</Text>

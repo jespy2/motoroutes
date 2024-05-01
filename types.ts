@@ -13,3 +13,13 @@ export interface IHomeProps {
   navigation: HomeScreenNavigationProp;
   route: HomeScreenRouteProp;
 }
+
+export interface IRoute {
+  ride: string;
+  time: number;
+  distance: number;
+  map: string;
+  difficulty: number;
+  notes?: string;
+  videos?: string[];
+}

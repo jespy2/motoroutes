@@ -5,9 +5,10 @@ import Home from "./pages/Home";
 import Routes from "./pages/Routes";
 import AddRoute from "./pages/AddRoute";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { StackParamList } from "./types";
 
 export default function App() {
-	const Stack = createNativeStackNavigator();
+	const Stack = createNativeStackNavigator<StackParamList>();
 
 	return (
 		<NavigationContainer>

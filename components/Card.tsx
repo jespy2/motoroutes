@@ -24,6 +24,7 @@ export default function Card(props: ICardProps) {
 			{showModal && <Notes setShowModal={setShowModal} />}
 			<Text style={styles.title}>{ride}</Text>
 			<View style={styles.subContainer}>
+				<Text style={styles.sectionTitle} >Stats</Text>
 				<View style={styles.dataContainer}>
 					<Text style={styles.label}>
 						<Ionicons name='time' style={styles.icon} /> {time} Hrs
@@ -39,6 +40,7 @@ export default function Card(props: ICardProps) {
 						<Entypo name='gauge' style={styles.icon} />: {difficulty}
 					</Text>
 				</View>
+					<Text style={styles.sectionTitle}>More Info</Text>
 				<View style={styles.linksContainer}>
 					<TouchableOpacity onPress={() => Linking.openURL(map)}>
 					<Text style={styles.label}>
@@ -89,9 +91,15 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around'
 	},
 	linksContainer: {
+		backgroundColor: "#DFD0B8",
 		flexDirection: "row",
     alignItems: 'center',
     justifyContent: 'space-around'
+	},
+	sectionTitle: {
+		paddingHorizontal: 10,
+		color: "#3C5B6F",
+		fontWeight: 'bold'
 	},
 	label: {
 		paddingHorizontal: 10,

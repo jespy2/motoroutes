@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Button, StyleSheet, Text, TextInput, View } from "react-native";
+import Header from "./Header";
 
 export interface IRoute {
   name: string,

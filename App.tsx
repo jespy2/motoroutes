@@ -1,16 +1,31 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, View } from "react-native";
-import Form from './components/Form';
-import Header from "./components/Header";
+import { NavigationContainer } from "@react-navigation/native";
+import Home from "./pages/Home";
+import Routes from "./pages/Routes";
+import AddRoute from "./pages/AddRoute";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 export default function App() {
+	const Stack = createNativeStackNavigator();
 
 	return (
-		<View style={styles.container}>
-			<Header />
-      <Form />
-			<StatusBar style='auto' />
-		</View>
+		<NavigationContainer>
+			<Stack.Navigator screenOptions={{ headerShown: false}}>
+				<Stack.Screen
+					name="Home"
+					component={Home}
+				/>
+				<Stack.Screen
+					name="AddRoute"
+					component={AddRoute}
+				/>
+				<Stack.Screen
+					name="Routes"
+					component={Routes}
+				/>
+			</Stack.Navigator>
+		</NavigationContainer>
 	);
 }
 

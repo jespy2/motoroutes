@@ -4,11 +4,17 @@ interface IButtonProps {
   onPress: () => void;
   title: string;
   type?: string;
+  accessibilityLabel: string;
 }
 
-const Button = ({ onPress, title, type }: IButtonProps) => (
-  <TouchableOpacity onPress={onPress} style={type==='dark' ? styles.darkButtonContainer : styles.buttonContainer}>
-    <Text style={type==='dark' ? styles.darkButtonText : styles.buttonText}>{title}</Text>
+const Button = ({ onPress, title, type, accessibilityLabel }: IButtonProps) => (
+  <TouchableOpacity
+    onPress={onPress}
+    style={type === 'dark' ? styles.darkButtonContainer : styles.buttonContainer}
+    >
+    <Text style={type === 'dark' ? styles.darkButtonText : styles.buttonText}
+    accessibilityLabel={accessibilityLabel}
+    >{title}</Text>
   </TouchableOpacity>
 );
 

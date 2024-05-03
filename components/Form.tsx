@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Button, StyleSheet, Text, TextInput, View } from "react-native";
-import Header from "./Header";
+import { StyleSheet, Text, TextInput, View } from "react-native";
+import Button from "./Button";
 
 export interface IRoute {
   name: string,
@@ -101,7 +101,7 @@ export default function Form() {
         title="Submit Route"
         accessibilityLabel="submit new route"
         onPress={handleSubmit}
-        color="#3C5B6F"
+        type='dark'
       />
 			</View>
   )

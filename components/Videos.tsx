@@ -1,33 +1,58 @@
+import { useState } from "react";
 import {
+	Linking,
 	Modal,
 	Pressable,
 	ScrollView,
 	StyleSheet,
 	Text,
+	Touchable,
+	TouchableOpacity,
 	View,
 } from "react-native";
-import Header from "./Header";
-import Button from "./Button";
-import { INotesProps } from "../types";
+import YoutubePlayer from "react-native-youtube-iframe";
+import { Platform } from "react-native";
 
-export default function Notes({ setShowNotes, notes, ride }: INotesProps) {
+import { IVideosProps } from "../types";
+
+import Button from "./Button";
+import Header from "./Header";
+
+export default function Videos(props: IVideosProps) {
+	const { setShowVideos, videos } = props;
+
+	const video = (url: string) => (
+		<>
+			{url === "" && (
+				<Text key='none' style={styles.noteText}>No videos for this route</Text>
+			)}
+			{url !== "" && (
+				<YoutubePlayer
+					key={url}
+					height={300}
+					play={false}
+					videoId={url.replace("https://youtu.be/", "")}
+				/>
+			)}
+		</>
+	);
+
 	return (
-		<View>
+		<View style={styles.container}>
 			<Modal>
 				<View style={styles.container}>
 					<Header />
 					<View style={styles.subContainer}>
-						<ScrollView style={styles.notesContainer}>
-							<Text style={styles.title}>{ride}</Text>
-							<Text style={styles.sectionTitle}>Notes for this route:</Text>
-							<Text style={styles.noteText}>{notes}</Text>
+						<ScrollView style={styles.videoContainer}>
+							<Text style={styles.title}>Videos</Text>
+							{videos.map((url) => video(url))}
 						</ScrollView>
-						<Pressable onPress={() => setShowNotes(false)}>
+						<Pressable onPress={() => setShowVideos(false)}>
 							<Button
 								title='close'
-								onPress={() => setShowNotes(false)}
+								onPress={() => setShowVideos(false)}
 								type='dark'
-								accessibilityLabel='close notes'
+								accessibilityLabel='close videos'
 							/>
 						</Pressable>
 					</View>
@@ -51,7 +76,7 @@ const styles = StyleSheet.create({
 		// paddingVertical: 20,
 		paddingHorizontal: 10,
 	},
-	notesContainer: {
+	videoContainer: {
 		height: 600,
 	},
 	title: {

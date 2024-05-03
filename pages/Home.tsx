@@ -20,12 +20,14 @@ export default function Home({navigation, route}: IHomeProps) {
           onPress={() => 
             navigation.navigate('Routes')
           }
+          accessibilityLabel='routes'
         />
         <Button
           title="Add Route" 
           onPress={() => 
             navigation.navigate('AddRoute')
           }
+          accessibilityLabel='add route'
         />
         <StatusBar style='auto' />
       </View>

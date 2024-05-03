@@ -10,6 +10,8 @@ type HomeScreenNavigationProp = NavigationProp<StackParamList, 'Home'>;
 type HomeScreenRouteProp = RouteProp<StackParamList, 'Home'>;
 type RoutesScreenNavigationProp = NavigationProp<StackParamList, 'Routes'>;
 type RoutesScreenRouteProp = RouteProp<StackParamList, 'Routes'>;
+type AddRouteScreenNavigationProp = NavigationProp<StackParamList, 'AddRoute'>;
+type AddRouteScreenRouteProp = RouteProp<StackParamList, 'AddRoute'>;
 
 export interface IHomeProps {
   navigation: HomeScreenNavigationProp;
@@ -19,11 +21,20 @@ export interface IRoutesProps {
   navigation: RoutesScreenNavigationProp;
   route: RoutesScreenRouteProp;
 }
+export interface IAddRouteProps {
+  navigation: AddRouteScreenNavigationProp;
+  route: AddRouteScreenRouteProp;
+}
 
 export interface INotesProps {
-  setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setShowNotes: React.Dispatch<React.SetStateAction<boolean>>;
   notes: string;
   ride: string;
+}
+
+export interface IVideosProps {
+  setShowVideos: React.Dispatch<React.SetStateAction<boolean>>;
+  videos: string[];
 }
 
 export interface IRoute {

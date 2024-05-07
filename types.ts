@@ -46,3 +46,8 @@ export interface IRoute {
   notes?: string;
   videos?: string[];
 }
+
+export type TooltipState = {
+	show: boolean;
+	pos: { x: number, y: number }
+}

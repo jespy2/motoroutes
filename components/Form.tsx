@@ -32,6 +32,36 @@ export default function Form() {
 		console.log(newRoute);
 	};
 
+	const infoText = {
+		difficulty: (
+			<>
+				<Text style={styles.infoText}>
+					<Text style={styles.infoTextBold}>1 Easy: </Text> Granny on a Hayabusa
+					could do it
+				</Text>
+				<Text style={styles.infoText}>
+					<Text style={styles.infoTextBold}>10 Difficult:</Text> Better cover
+					yourself in bubble wrap
+				</Text>
+			</>
+		),
+		hours: (
+			<Text style={styles.infoText}>
+				Give in hours. Ex. 1.25 for an hour and fifteen minutes
+			</Text>
+		),
+		maps: (
+			<>
+				<Text style={styles.infoTextBold}>How to copy your map URL:</Text>
+				<Text style={styles.infoText}>
+					When you have your route, tap the 3 dots next to the starting point
+				</Text>
+				<Text style={styles.infoText}>Tap "Share Directions"</Text>
+				<Text style={styles.infoText}>Select "Copy to clipboard "</Text>
+			</>
+		),
+	};
+
 	return (
 		<View style={styles.form}>
 			<Text style={styles.heading}>Add a ride to your routes collection: </Text>
@@ -51,14 +81,7 @@ export default function Form() {
 					placeholder='Difficulty on 1-10 scale'
 					keyboardType='numeric'
 				/>
-				<MoreInfo>
-					<Text style={styles.infoText}>
-						<Text style={styles.infoTextBold}>1 Easy: </Text> Granny on a Hayabusa
-						could do it
-						<Text style={styles.infoTextBold}>10 Difficult:</Text> Better cover
-						yourself in bubble wrap
-					</Text>
-				</MoreInfo>
+				<MoreInfo>{infoText.difficulty}</MoreInfo>
 			</View>
 
 			<View style={styles.inputWithInfo}>
@@ -69,11 +92,7 @@ export default function Form() {
 					placeholder='Trip length in hours'
 					keyboardType='numeric'
 				/>
-				<MoreInfo>
-					<Text style={styles.infoText}>
-						Give in hours. Ex. 1.25 for an hour and fifteen minutes
-					</Text>
-				</MoreInfo>
+				<MoreInfo>{infoText.hours}</MoreInfo>
 			</View>
 
 			<TextInput
@@ -97,14 +116,7 @@ export default function Form() {
 					value={mapUrl}
 					placeholder='Paste Google Maps URL'
 				/>
-				<MoreInfo>
-					<Text style={styles.infoTextBold}>How to copy your map URL:</Text>
-					<Text style={styles.infoText}>
-						When you have your route, tap the 3 dots next to the starting point
-					</Text>
-					<Text style={styles.infoText}>Tap "Share Directions"</Text>
-					<Text style={styles.infoText}>Select "Copy to clipboard "</Text>
-				</MoreInfo>
+				<MoreInfo>{infoText.maps}</MoreInfo>
 			</View>
 
 			<Button
@@ -119,7 +131,7 @@ export default function Form() {
 
 const styles = StyleSheet.create({
 	heading: {
-		marginBottom: 10,
+		marginBottom: 30,
 		fontSize: 20,
 		fontWeight: "900",
 	},
@@ -134,9 +146,10 @@ const styles = StyleSheet.create({
 	},
 	input: {
 		height: 40,
-		marginTop: 30,
+		marginBottom: 30,
 		borderWidth: 1,
 		padding: 10,
+		borderRadius: 5,
 	},
 	label: {
 		fontSize: 12,
@@ -146,14 +159,16 @@ const styles = StyleSheet.create({
 	},
 	infoText: {
 		fontSize: 12,
-		color: '#DFD0B8'
+		color: "#DFD0B8",
+		marginVertical: 2,
 	},
 	infoTextBold: {
 		fontWeight: "700",
 	},
 	inputWithInfo: {
-		flexDirection: 'row',
-		alignItems: 'center',
-		justifyContent: 'center'
+		flexDirection: "row",
+		alignItems: "flex-start",
+		justifyContent: "center",
+		marginLeft: 35,
 	},
 });

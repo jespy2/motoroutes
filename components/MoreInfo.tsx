@@ -18,6 +18,7 @@ export default function MoreInfo({ children }: PropsWithChildren) {
 	const viewRef = useRef<View>();
 	return (
 		<View
+			style={styles.container}
 			ref={viewRef}
 			onLayout={() => {
 				viewRef?.current?.measure((x, y, width, height, pageX, pageY) => {
@@ -40,8 +41,7 @@ export default function MoreInfo({ children }: PropsWithChildren) {
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1,
-		backgroundColor: "#3C5B6F",
+		marginLeft: 10
 	},
 	subContainer: {
 		borderColor: "#DFD0B8",

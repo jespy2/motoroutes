@@ -29,7 +29,6 @@ export default function Form() {
 			notes: notes,
 			mapUrl: mapUrl,
 		};
-		console.log(newRoute);
 	};
 
 	const infoText = {

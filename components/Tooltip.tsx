@@ -25,7 +25,7 @@ export default function Tooltip(props: TooltipProps) {
 		borderRadius: 5,
 		transformOrigin: "top"
 	});
-	console.log(tooltip);
+	
 	return (
 		<Modal transparent>
 			<View style={getTooltipStyle(pos.x, pos.y)}>

@@ -22,7 +22,6 @@ export default function MoreInfo({ children }: PropsWithChildren) {
 			ref={viewRef}
 			onLayout={() => {
 				viewRef?.current?.measure((x, y, width, height, pageX, pageY) => {
-					console.log("view", x, y, width, height, pageX, pageY);
 					setTooltip({...tooltip, pos: {x: pageX, y: pageY}});
 				});
 			}}

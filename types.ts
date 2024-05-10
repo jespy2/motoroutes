@@ -37,13 +37,34 @@ export interface IVideosProps {
   videos: string[];
 }
 
+export type difficulty = 0 | 1 | 2;
+export type hazards = 0 | 1 | 2;
+export type difficulty_attributes =
+  'twisties' |
+  'elevation changes (grades)' |
+  'speed limits' |
+  'road conditions';
+
+export type hazards_attributes =
+  'road quality' |
+  'visibility' |
+  'typical weather' |
+  'traffic' |
+  'wildlife';
+
 export interface IRoute {
   ride: string;
+  difficulty: difficulty;
+  difficulty_attributes?: difficulty_attributes[];
+  difficulty_notes?: string;
+  hazards: hazards;
+  hazards_attributes?: hazards_attributes[];
+  hazards_notes?: string;
   time: number;
   distance: number;
-  map: string;
-  difficulty: number;
   notes?: string;
+  map: string;
+  gallary?: string[];
   videos?: string[];
 }
 

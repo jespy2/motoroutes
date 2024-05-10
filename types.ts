@@ -72,3 +72,8 @@ export type TooltipState = {
 	show: boolean;
 	pos: { x: number, y: number }
 }
+
+export interface ICardProps {
+	key: number;
+	route: IRoute;
+}

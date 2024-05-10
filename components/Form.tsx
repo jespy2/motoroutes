@@ -1,34 +1,36 @@
 import { useState } from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
+import SelectDropdown from 'react-native-select-dropdown'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import Button from "./Button";
 import MoreInfo from "./MoreInfo";
-export interface IRoute {
-	name: string;
-	difficulty: string;
-	duration: string;
-	risks: string;
-	notes: string;
-	mapUrl: string;
-}
+import { IRoute, difficulty, hazards } from "../types";
 
 export default function Form() {
 	const [name, onChangeName] = useState<string>("");
-	const [difficulty, onChangeDifficulty] = useState<string>("");
-	const [duration, onChangeDuration] = useState<string>("");
-	const [risks, onChangeRisks] = useState<string>("");
+	const [difficulty, onChangeDifficulty] = useState<difficulty>(1);
+	const [hazards, onChangeHazards] = useState<difficulty>(1);
+	const [hour, onChangeHour] = useState<number>(0);
+	const [minute, onChangeMinute] = useState<number>(0);
+	const [distance, onChangeDistance] = useState<number>(0);
 	const [notes, onChangeNotes] = useState<string>("");
-	const [mapUrl, onChangeMapUrl] = useState<string>("");
+	const [map, onChangeMap] = useState<string>("");
+	const [videos, onChangeVideos] = useState<string[]>([""]);
 
 	const handleSubmit = () => {
+		const floatedMinutes = parseFloat((minute / 60).toString());
 		const newRoute: IRoute = {
-			name: name,
+			ride: name,
 			difficulty: difficulty,
-			duration: duration,
-			risks: risks,
+			hazards: hazards,
+			time: parseInt(hour.toString()) + (minute / 60.0),
+			distance: distance,
 			notes: notes,
-			mapUrl: mapUrl,
+			map: map,
+			videos: videos,
 		};
+		console.log(newRoute)
 	};
 
 	const infoText = {
@@ -61,6 +63,11 @@ export default function Form() {
 		),
 	};
 
+	const timeOptions = {
+		hour: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"], 
+		minute: ["0", "15", "30", "45"]
+	}
+
 	return (
 		<View style={styles.form}>
 			<Text style={styles.heading}>Add a ride to your routes collection: </Text>
@@ -84,20 +91,112 @@ export default function Form() {
 			</View>
 
 			<View style={styles.inputWithInfo}>
-				<TextInput
+
+
+
+				<SelectDropdown
+					data={timeOptions.hour}
+					onSelect={(selectedItem, index) => {
+						console.log("hour:", selectedItem)
+						onChangeHour(selectedItem);
+					}}
+					renderButton={(selectedItem, isOpened) => {
+						return (
+							<View style={styles.dropdownButtonStyle}>
+								{selectedItem && (
+									<Icon name={selectedItem.icon} style={styles.dropdownButtonIconStyle} />
+								)}
+								<Text style={styles.dropdownButtonTxtStyle}>
+									{(selectedItem && selectedItem) || 'Hours'}
+								</Text>
+								<Icon name={isOpened ? 'chevron-up' : 'chevron-down'} style={styles.dropdownButtonArrowStyle} />
+							</View>
+						);
+					}}
+					renderItem={(item, index, isSelected) => {
+						return (
+							<View style={{...styles.dropdownItemStyle, ...(isSelected && {backgroundColor: '#D2D9DF'})}}>
+								<Icon name={item.icon} style={styles.dropdownItemIconStyle} />
+								<Text style={styles.dropdownItemTxtStyle}>{item}</Text>
+							</View>
+						);
+					}}
+					showsVerticalScrollIndicator={false}
+					dropdownStyle={styles.dropdownMenuStyle}
+				/>
+
+
+
+
+
+
+				<SelectDropdown
+					data={timeOptions.minute}
+					onSelect={(selectedItem, index) => {
+						console.log("minute:", selectedItem)
+						onChangeMinute(selectedItem);
+					}}
+					renderButton={(selectedItem, isOpened) => {
+						return (
+							<View style={styles.dropdownButtonStyle}>
+								{selectedItem && (
+									<Icon name={selectedItem.icon} style={styles.dropdownButtonIconStyle} />
+								)}
+								<Text style={styles.dropdownButtonTxtStyle}>
+									{(selectedItem && selectedItem) || 'Minutes'}
+								</Text>
+								<Icon name={isOpened ? 'chevron-up' : 'chevron-down'} style={styles.dropdownButtonArrowStyle} />
+							</View>
+						);
+					}}
+					renderItem={(item, index, isSelected) => {
+						return (
+							<View style={{...styles.dropdownItemStyle, ...(isSelected && {backgroundColor: '#D2D9DF'})}}>
+								<Icon name={item.icon} style={styles.dropdownItemIconStyle} />
+								<Text style={styles.dropdownItemTxtStyle}>{item}</Text>
+							</View>
+						);
+					}}
+					showsVerticalScrollIndicator={false}
+					dropdownStyle={styles.dropdownMenuStyle}
+				/>
+				{/* <TextInput
 					style={styles.input}
-					onChangeText={onChangeDuration}
-					value={duration}
+					onChangeText={onChangeTime}
+					value={time}
 					placeholder='Trip length in hours'
 					keyboardType='numeric'
+				/> */}
+				{/* <WheelPicker
+					visibleRest={1}
+					selectedIndex={timeOptions.hour.indexOf(hour.toString())}
+					options={timeOptions.hour}
+					onChange={(index) => {
+						const value = timeOptions.hour.at(index);
+						if (value !== undefined) {
+								onChangeHour(parseInt(value));
+						}
+					}}
 				/>
+				<WheelPicker
+					// visibleRest={1}
+					itemHeight={30}
+					selectedIndex={timeOptions.minute.indexOf(minute.toString())}
+					options={timeOptions.minute}
+					onChange={(index) => {
+						const value = timeOptions.minute.at(index);
+						if (value !== undefined) {
+								onChangeMinute(parseInt(value));
+						}
+				}}
+				/> */}
 				<MoreInfo>{infoText.hours}</MoreInfo>
 			</View>
 
 			<TextInput
 				style={styles.input}
-				onChangeText={onChangeRisks}
-				value={risks}
+				onChangeText={onChangeHazards}
+				value={hazards}
 				placeholder='Describe risks to look out for'
 			/>
 
@@ -111,8 +210,8 @@ export default function Form() {
 			<View style={styles.inputWithInfo}>
 				<TextInput
 					style={styles.input}
-					onChangeText={onChangeMapUrl}
-					value={mapUrl}
+					onChangeText={onChangeMap}
+					value={map}
 					placeholder='Paste Google Maps URL'
 				/>
 				<MoreInfo>{infoText.maps}</MoreInfo>
@@ -169,5 +268,50 @@ const styles = StyleSheet.create({
 		alignItems: "flex-start",
 		justifyContent: "center",
 		marginLeft: 35,
+	},
+	dropdownButtonStyle: {
+		width: 120,
+		height: 50,
+		backgroundColor: '#E9ECEF',
+		borderRadius: 12,
+		flexDirection: 'row',
+		justifyContent: 'center',
+		alignItems: 'center',
+		paddingHorizontal: 12,
+	},
+	dropdownButtonTxtStyle: {
+		flex: 1,
+		fontSize: 18,
+		fontWeight: '500',
+		color: '#151E26',
+	},
+	dropdownButtonArrowStyle: {
+		fontSize: 28,
+	},
+	dropdownButtonIconStyle: {
+		fontSize: 28,
+		marginRight: 8,
+	},
+	dropdownMenuStyle: {
+		backgroundColor: '#E9ECEF',
+		borderRadius: 8,
+	},
+	dropdownItemStyle: {
+		width: '100%',
+		flexDirection: 'row',
+		paddingHorizontal: 12,
+		justifyContent: 'center',
+		alignItems: 'center',
+		paddingVertical: 8,
+	},
+	dropdownItemTxtStyle: {
+		flex: 1,
+		fontSize: 18,
+		fontWeight: '500',
+		color: '#151E26',
+	},
+	dropdownItemIconStyle: {
+		fontSize: 28,
+		marginRight: 8,
 	},
 });
